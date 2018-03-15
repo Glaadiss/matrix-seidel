@@ -12,5 +12,9 @@ function createMatrix(matrix, vector) {
 function returnArrays(filename) {
   var fs = require("fs");
   var jsonData = fs.readFileSync(filename);
-  return { A, B } = JSON.parse(jsonData);
+  return ({ A, B } = JSON.parse(jsonData));
 }
+
+const newMatrix = createMatrix(returnArrays("./data1.json").A);
+
+console.log(newMatrix);
