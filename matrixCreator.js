@@ -41,4 +41,9 @@ function mult(matrix, vector) {
 }
 
 const { A, B } = returnArrays("./data1.json");
-module.exports = { matrix: createMatrix(A), vector: createVector(A, B), mult };
+module.exports = {
+  matrix: createMatrix(A),
+  vector: createVector(A, B),
+  mult,
+  addMatrix
+};
