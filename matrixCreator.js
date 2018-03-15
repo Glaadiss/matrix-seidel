@@ -24,5 +24,15 @@ function returnArrays(filename) {
   return JSON.parse(jsonData);
 }
 
+function mult(matrix, vector) {
+  return matrix.map((row, rowIndex) =>
+    row.map((_, cellIndex) => {
+      const a = matrix[rowIndex][cellIndex];
+      const b = vector[cellIndex];
+      return a * b;
+    }).reduce((accumulator, currentValue) => (accumulator + currentValue))
+  );
+}
+
 const { A, B } = returnArrays("./data1.json");
 module.exports = { matrix: createMatrix(A), vector: createVector(A, B), mult };
