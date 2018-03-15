@@ -1,32 +1,12 @@
-function createMatrix(matrix) {
-  return matrix.map((row, rowIndex) =>
-    row.map((_, cellIndex) => {
-      const Aij = matrix[rowIndex][cellIndex];
-      const Aii = matrix[rowIndex][rowIndex];
-      if (Aii === 0) throw new Error("can't divide by 0");
-      return rowIndex === cellIndex ? 0 : -Aij / Aii;
-    })
-  );
+const { matrix, vector, mult } = require("./matrixCreator");
+
+console.log(matrix, vector);
+console.log(mult(matrix, vector));
+
+let i = 0;
+let Xk1 = vector;
+const MLI = 30;
+
+while (i === 0 || i <= MLI) {
+  i++;
 }
-
-function createVector(matrix, vector) {
-  return matrix.map((_, index) => {
-    const Aii = matrix[index][index];
-    const Bi = vector[index];
-    if (Aii === 0) throw new Error("can't divide by 0");
-    return Bi / Aii;
-  });
-}
-
-function returnArrays(filename) {
-  var fs = require("fs");
-  var jsonData = fs.readFileSync(filename);
-  return JSON.parse(jsonData);
-}
-
-const { A, B } = returnArrays("./data1.json");
-const newMatrix = createMatrix(A);
-const newVector = createVector(A, B);
-
-console.log(newMatrix);
-console.log(newVector);
