@@ -24,5 +24,9 @@ function returnArrays(filename) {
   return JSON.parse(jsonData);
 }
 
+function addMatrix(A, B) {
+  return A.map((a, i) => a + B[i]);
+}
+
 const { A, B } = returnArrays("./data1.json");
 module.exports = { matrix: createMatrix(A), vector: createVector(A, B), mult };
