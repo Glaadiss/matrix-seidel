@@ -8,3 +8,9 @@ function createMatrix(matrix, vector) {
     })
   );
 }
+
+function returnArrays(filename) {
+  var fs = require("fs");
+  var jsonData = fs.readFileSync(filename);
+  return { A, B } = JSON.parse(jsonData);
+}
