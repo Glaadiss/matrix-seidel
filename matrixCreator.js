@@ -1,3 +1,61 @@
+const fs = require("fs");
+const { A, B } = returnArrays(process.argv[2]).sets[0];
+
+function print(matrix, fn) {
+  return matrix.map(fn).join("\n");
+}
+
+function printMatrix(matrix) {
+  return print(matrix, arr =>
+    arr.map(el => `${String(el).padStart(8)} `).join("")
+  );
+}
+
+function printVector(vector) {
+  return print(vector, el => `${el} `);
+}
+
+function printVectorExp(vector) {
+  return print(vector, el => `${toExp(el)}`);
+}
+
+function generateReportText(matrixAlfa, vectorBeta, e, mni, Xk1, prevXk1, i) {
+  return `
+RAPORT:
+  
+Macierz wejściowa:
+${printMatrix(A)}
+
+Wektor wejściowy:
+${printVector(B)}
+
+Dokładnośc e: ${e}
+
+Maksymalna liczba iteracji: ${mni}
+
+Macierz Alfa:
+${printMatrix(matrixAlfa)}
+
+Wektor Beta:
+${printVector(vectorBeta)}
+
+Wektor ostatnio wykonanej operacji:
+${printVectorExp(Xk1)}
+
+Wektor przedostatnio wykonanej operacji:
+${printVectorExp(prevXk1)}
+
+Liczba wykonanych operacji: ${i}
+`;
+}
+
+function createReport(text) {
+  fs.writeFile("raport.txt", text, function(err) {
+    if (err) throw err;
+    console.log("Saved!");
+  });
+}
+
 function createMatrix(matrix) {
   return matrix.map((row, rowIndex) =>
     row.map((_, cellIndex) => {
@@ -19,8 +77,7 @@ function createVector(matrix, vector) {
 }
 
 function returnArrays(filename) {
-  var fs = require("fs");
-  var jsonData = fs.readFileSync(filename);
+  const jsonData = fs.readFileSync(filename);
   return JSON.parse(jsonData);
 }
 
@@ -40,10 +97,15 @@ function mult(matrix, vector) {
   );
 }
 
-const { A, B } = returnArrays("./data1.json").sets[1];
+function toExp(el) {
+  return Number.parseFloat(el).toExponential(10);
+}
+
 module.exports = {
   matrix: createMatrix(A),
   vector: createVector(A, B),
   mult,
-  addMatrix
+  addMatrix,
+  generateReportText,
+  createReport
 };
