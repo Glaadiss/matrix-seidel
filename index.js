@@ -12,19 +12,13 @@ let XkSum = 0;
 const MLI = 30;
 const e = 0.0001;
 const n = 5;
-let dzielnik = 0;
+let dzielnik = 1;
 
-while (dzielnik < e && i < MLI) {
+while (dzielnik > e && i < MLI) {
   i++;
   const previousXk = Xk1;
   Xk1 = mult(matrix, previousXk);
 
-  XkSum = Xk1.reduce(
-    (acc, curr, i) => acc + Math.abs(curr - previousXk[i]),
-    XkSum
-  );
+  XkSum = Xk1.reduce((acc, curr, i) => acc + Math.abs(curr - previousXk[i]), 0);
   dzielnik = XkSum / n;
 }
-
-console.log(i);
-// console.log(Xk1);
