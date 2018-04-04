@@ -107,10 +107,11 @@ function createReport(text) {
 function wczytaj() {
   const { A, B } = returnArrays(process.argv[2]).sets[0]; // wczytanie macierzy A i wektora B z pliku podanego jako argument przy uruchamianiu programu
 
-  // TODO // wczytaj argumenty z klawiatury
-  const MLI = 30;
-  const E = 0.0001;
-  const n = 5;
+  // wczytaj argumenty z klawiatury podane przy starcie programu w kolejności:
+  // n, E, MLI
+  const n = Number(process.argv[3]);
+  const E = Number(process.argv[4]);
+  const MLI = Number(process.argv[5]);
 
   return { A, B, n, E, MLI };
 }
