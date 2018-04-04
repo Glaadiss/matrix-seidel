@@ -2,7 +2,7 @@ const fs = require("fs");
 const { A, B } = returnArrays(process.argv[2]).sets[0];
 
 function print(matrix, fn) {
-  return matrix.map(fn).join("\n");
+  return matrix.map(fn).join("\n \n");
 }
 
 function printMatrix(matrix) {
@@ -12,11 +12,11 @@ function printMatrix(matrix) {
 }
 
 function printVector(vector) {
-  return print(vector, el => `${el} `);
+  return print(vector, el => `${el}`.padStart(8));
 }
 
 function printVectorExp(vector) {
-  return print(vector, el => `${toExp(el)}`);
+  return print(vector, el => `${toExp(el)}`.padStart(20));
 }
 
 function generateReportText(matrixAlfa, vectorBeta, e, mni, Xk1, prevXk1, i) {
@@ -24,26 +24,48 @@ function generateReportText(matrixAlfa, vectorBeta, e, mni, Xk1, prevXk1, i) {
 RAPORT:
   
 Macierz wejściowa:
+
 ${printMatrix(A)}
 
+----------------------------------------------------------------------
+
 Wektor wejściowy:
+
 ${printVector(B)}
+
+----------------------------------------------------------------------
 
 Dokładnośc e: ${e}
 
+----------------------------------------------------------------------
+
 Maksymalna liczba iteracji: ${mni}
 
+----------------------------------------------------------------------
+
 Macierz Alfa:
+
 ${printMatrix(matrixAlfa)}
 
+----------------------------------------------------------------------
+
 Wektor Beta:
+
 ${printVector(vectorBeta)}
 
+----------------------------------------------------------------------
+
 Wektor ostatnio wykonanej operacji:
+
 ${printVectorExp(Xk1)}
 
+----------------------------------------------------------------------
+
 Wektor przedostatnio wykonanej operacji:
+
 ${printVectorExp(prevXk1)}
+
+----------------------------------------------------------------------
 
 Liczba wykonanych operacji: ${i}
 `;
