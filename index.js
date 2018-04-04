@@ -18,7 +18,6 @@ while (dzielnik > e && i < MLI) {
   i++;
   const previousXk = Xk1;
   Xk1 = mult(matrix, previousXk);
-
   XkSum = Xk1.reduce((acc, curr, i) => acc + Math.abs(curr - previousXk[i]), 0);
   dzielnik = XkSum / n;
 }

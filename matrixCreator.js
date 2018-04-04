@@ -40,7 +40,7 @@ function mult(matrix, vector) {
   );
 }
 
-const { A, B } = returnArrays("./data1.json");
+const { A, B } = returnArrays("./data1.json").sets[1];
 module.exports = {
   matrix: createMatrix(A),
   vector: createVector(A, B),
