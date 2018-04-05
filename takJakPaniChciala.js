@@ -134,32 +134,33 @@ function oblicz(a, b, n, E, MLI) {
   while (dzielnik > E && i < MLI) {
     i++;
     previousXk = Xk1;
-    Xk1 = function ourFunction(a, b, previousXk, Xk1) {
-      let tempXk1 = [];
-      let tempSum = 0;
 
-      // i = 0
-      for (let j = 2; j < n; j++) {
-        tempSum += a[0][j] * previousXk[j];
+    let tempXk1 = [];
+    let tempSum = 0;
+
+    // i = 0
+    for (let j = 2; j < n; j++) {
+      tempSum += a[0][j] * previousXk[j];
+    }
+    tempXk1[0] = tempSum + b[0];
+
+    for (let i = 1; i < n; i++) {
+
+      let tempSum1 = 0;
+      for (let j = 0; j < i; j++) {
+        tempSum1 += a[i][j] * tempXk1[j];
       }
-      tempXk1[0] = tempSum + b[0];
 
-      for (let i = 1; i < n; i++) {
-
-        let tempSum1 = 0;
-        for (let j = 0; j < i; j++) {
-          tempSum1 += a[i][j] * tempXk1[j];
-        }
-
-        let tempSum2 = 0;
-        for (let j = i + 1; j < n; j++) {
-          tempSum2 += a[i][j] * previousXk[j];
-        }
-
-        tempXk1[i] = tempSum1 + tempSum2 + b[i];
+      let tempSum2 = 0;
+      for (let j = i + 1; j < n; j++) {
+        tempSum2 += a[i][j] * previousXk[j];
       }
-      return tempXk1;
-    }(a, b, previousXk, Xk1);
+
+      tempXk1[i] = tempSum1 + tempSum2 + b[i];
+    }
+
+    Xk1 = tempXk1;
+
     XkSum = Xk1.reduce((acc, curr, i) => acc + Math.abs(curr - previousXk[i]), 0);
     dzielnik = XkSum / n;
   }
