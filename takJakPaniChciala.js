@@ -26,14 +26,13 @@ function createVector(matrix, vector) {
   });
 }
 
-function addMatrix(A, B) {
+function addVector(A, B) {
   return A.map((a, i) => a + B[i]);
 }
 
 function mult(matrix, vector) {
   return matrix.map((row, rowIndex) =>
-    row
-    .map((_, cellIndex) => {
+    row.map((_, cellIndex) => {
       const a = matrix[rowIndex][cellIndex];
       const b = vector[cellIndex];
       return a * b;
@@ -135,7 +134,7 @@ function oblicz(a, b, n, E, MLI) {
   while (dzielnik > E && i < MLI) {
     i++;
     previousXk = Xk1;
-    Xk1 = mult(a, previousXk);
+    Xk1 = addVector(mult(a, previousXk), b);
     XkSum = Xk1.reduce((acc, curr, i) => acc + Math.abs(curr - previousXk[i]), 0);
     dzielnik = XkSum / n;
   }
